@@ -14,4 +14,3 @@ jobs:
           url: "https://api.ileap.sine.dev"
           user: ${{ secrets.ACT_USER }}
           password: ${{ secrets.ACT_PASSWORD }}
-          token: "foobar"

@@ -11,16 +11,12 @@ inputs:
   password:
     description: "Basic auth password"
     required: true
-  token:
-    description: "Action access token"
-    required: true
-    default: "foobar"
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.url }}
-    - ${{ inputs.user }}
-    - ${{ inputs.password }}
-    - ${{ inputs.token }}
+  using: "composite"
+  steps:
+    - name: Run conformance-test.sh
+      run: |
+        chmod +x conformance-test.sh
+        ./conformance-test.sh ${{ inputs.url }} ${{ inputs.user }} ${{ inputs.password }}
+      shell: bash
