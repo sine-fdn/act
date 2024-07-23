@@ -1,0 +1,29 @@
+# action.yml
+name: "ACT"
+description: "Automated Conformance Testing"
+inputs:
+  url:
+    description: "URL of the API"
+    required: true
+    default: "https://api.pathfinder.sine.dev"
+  user:
+    description: "Basic auth username"
+    required: true
+    default: "hello"
+  password:
+    description: "Basic auth password"
+    required: true
+    default: "pathfinder"
+  token:
+    description: "Action access token"
+    required: true
+    default: "foobar"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.url }}
+    - ${{ inputs.user }}
+    - ${{ inputs.password }}
+    - ${{ inputs.token }}
