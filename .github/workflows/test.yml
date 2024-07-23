@@ -12,6 +12,6 @@ jobs:
         id: conformance
         with:
           url: "https://api.ileap.sine.dev"
-          user: "hello"
-          password: "pathfinder"
+          user: ${{ secrets.ACT_USER }}
+          password: ${{ secrets.ACT_PASSWORD }}
           token: "foobar"
