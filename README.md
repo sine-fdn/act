@@ -15,12 +15,17 @@ To use act in the CLI, simply copy the following command, replacing `<url>`, `<u
 curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "<url>" "<user>" "<password>"
 ```
 
-> Note: If you're testing against a local server, test cases 014, 015, and 016 will always fail, since these actions are made available through HTTP (non-HTTPS). We recommend skipping these tests by addind `--skip-http-check` to the command above:
->  ```
-> curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "<url>" "<user>" > "<password>" --skip-http-check
-> ```
+### Architecture
+
+To specify the architecture of the binary you want to run, pass the environment variable `ARCH` with either the value `"arm64"` or the value `"x86-64"`. Defaults to `"arm64"`.
+
+> Note: Any other value is considered invalid and the default will be used.
+
+### Skip HTTP-only tests
+
+If you're testing against a local server, test cases 014, 015, and 016 will always fail, since these actions are made available through HTTP (non-HTTPS). We recommend skipping these tests by adding the argument `--skip-http-check`.
 
 **Example with SINE's iLEAP demo API**
 ```
-curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "https://api.ileap.sine.dev" "hello" "pathfinder"
+ARCH="arm64 "curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "https://api.ileap.sine.dev" "hello" "pathfinder" --skip-http-check
 ```
