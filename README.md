@@ -12,7 +12,7 @@ ACT performs the tests included in [PACT's checklist](https://wbcsd.github.io/pa
 To use act in the CLI, simply copy the following command, replacing `<url>`, `<user>`, and `<`password>` with the URL of your API and the Basic Auth credentials (user and password).
 
 ```
-curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "<url>" "<user>" "<password>"
+curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- -e "<url>" -u "<user>" -p "<password>"
 ```
 
 ### Architecture
@@ -27,5 +27,5 @@ If you're testing against a local server, test cases 014, 015, and 016 will alwa
 
 **Example with SINE's iLEAP demo API**
 ```
-ARCH="arm64 "curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "https://api.ileap.sine.dev" "hello" "pathfinder" --skip-http-check
+ARCH="arm64" curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- -e "https://api.ileap.sine.dev" -u "hello" -p "pathfinder" --skip-http-check
 ```
