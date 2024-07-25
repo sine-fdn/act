@@ -7,15 +7,15 @@ ACT performs the tests included in [PACT's checklist](https://wbcsd.github.io/pa
 
 # Usage
 
+## CLI
+
+To use act in the CLI, simply copy the following command, replacing `<url>`, `<user>`, and `<`password>` with the URL of your API and the Basic Auth credentials (user and password).
+
 ```
-- uses: actions/sine-fdn/act@v0
-  with:
-    # URL of the API to be tested
-    url: ''
-    # Basic auth username. For security purposes, we recommend having it set as a repository secret.
-    # For a secret named `ACT_USER` the value of `user:` should be `${{ secrets.ACT_USER }}`
-    user: ''
-    # Basic auth password. For security purposes, we recommend having it set as a repository secret.
-    # For a secret named `ACT_PASSWORD` the value of `password:` should be `${{ secrets.ACT_PASSWORD }}`
-    password: ''
+curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "<url>" "<user>" "<password>"
+```
+
+**Example with SINE's iLEAP demo API**
+```
+curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- "https://api.ileap.sine.dev" "hello" "pathfinder"
 ```
