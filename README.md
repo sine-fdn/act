@@ -9,7 +9,7 @@ ACT performs the tests included in [PACT's checklist](https://wbcsd.github.io/pa
 
 ## CLI
 
-To use act in the CLI, simply copy the following command, replacing `<url>`, `<user>`, and `<`password>` with the URL of your API and the Basic Auth credentials (user and password).
+To use act in the CLI, simply copy the following command, replacing `<url>`, `<user>`, and `<password>` with the URL of your API and the Basic Auth credentials (user and password).
 
 ```
 curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- -e "<url>" -u "<user>" -p "<password>"
@@ -29,3 +29,28 @@ If you're testing against a local server, test cases 014, 015, and 016 will alwa
 ```
 ARCH="arm64" curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- -e "https://api.ileap.sine.dev" -u "hello" -p "pathfinder" --skip-http-check
 ```
+## GitHub Workflow
+
+Adding ACT to your CI/CD pipeline with GitHub is as simple as including the following job in your GitHub workflow, replacing `<url>`, `<user>`, and `<password>` with the URL of your API and the Basic Auth credentials (user and password).
+
+```
+  act_test:
+    name: ACT Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run ACT (test)
+        env:
+          ARCH: "x86-64"
+        run: |
+          set -o pipefail
+          curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | \
+          bash -s -- \
+          -e `<url>` \
+          -u `<user>` \
+          -p `<password>` \
+```
+
+The Basic Auth credentials can (and should) be passed in through repository secrets (e.g., `${{secrets.ACT_USER}}` and `${{secrets.ACT_PASSWORD}}`).
+
+In case you're testing against your development build, you need to have it run in parallel. In that case, include also the flag `--skip-http-check`.

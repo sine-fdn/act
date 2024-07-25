@@ -10,7 +10,7 @@ jobs:
         env:
           ARCH: "x86-64"
         run: |
-          set -o pipefail
+          set -o pipefail --
           curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh?token=${{secrets.ACT_TOKEN}} | \
           bash -s -- \
           -e "https://api.ileap.sine.dev" \
