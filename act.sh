@@ -15,4 +15,4 @@ conformance_bin=$(mktemp)
 curl -o ${conformance_bin} "https://actbin.blob.core.windows.net/act-bin/conformance_$ARCH"
 
 chmod +x ${conformance_bin}
-exec ${conformance_bin} "$@" --check-events
+exec ${conformance_bin} "$@"
