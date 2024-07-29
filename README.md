@@ -1,47 +1,53 @@
 # ACT (beta)
 
 ACT (Automated Conformance Testing) tests your software solution against the [PACT Technical
-Specifications](https://wbcsd.github.io/data-exchange-protocol/v2/) as part of your CI/CD pipeline.
+Specifications](https://wbcsd.github.io/data-exchange-protocol/v2/).
 
-ACT performs the tests included in [PACT's checklist](https://wbcsd.github.io/pact-conformance-testing/checklist.html), ensuring that your software is ready for bilateral conformance testing. Having ACT in your CI/CD pipeline saves you time and money, by preventing you from engaging in premature manual bilateral testing.
+For this, ACT performs the tests included in [PACT's checklist](https://wbcsd.github.io/pact-conformance-testing/checklist.html), ensuring that your software is ready for bilateral conformance testing. 
+
+By integrating ACT into your CI/CD pipeline and development processes, you can streamline the PACT Tech Specs implementation and conformance process in general.
+
+
+> [!NOTE]  
+> ACT is still under development. This means that the tool is not yet fully stable and may not cover all
+> the requirements of the PACT Technical Specifications or that its tests may differ from the Tech Specs.
+> 
+> If you encounter any issues or difficulties, give us [feedback](#contact), open an issue on the [ACT GitHub repository](https://github.com/sine-fdn/act/issues).
+
 
 # Usage
 
-## CLI
+You can use ACT in the CLI or in a GitHub workflow.
 
-To use act in the CLI, simply copy the following command, replacing `<url>`, `<user>`, and `<password>` with the URL of your API and the Basic Auth credentials (user and password).
+All you need to do is to adapt below commands to your environment and run them in your terminal or in your GitHub workflow:
 
+```sh
+curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh |\
+  bash -s -- -e "<url>" -u "<user>" -p "<password>" --skip-http-check
 ```
-curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- -e "<url>" -u "<user>" -p "<password>"
+
+(i.e. `<user>`, `<password>` etc. are placeholders for your actual client credentials)
+
+
+Example usage with SINE's iLEAP demo API
+```sh
+curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh |\
+  bash -s -- -e "https://api.ileap.sine.dev" -u "hello" -p "pathfinder" \
+    --skip-http-check
 ```
 
-### Architecture
 
-To specify the architecture of the binary you want to run, pass the environment variable `ARCH` with either the value `"arm64"` or the value `"x86-64"`. Defaults to `"arm64"`.
-
-> Note: Any other value is considered invalid and the default will be used.
-
-### Skip HTTP-only tests
-
-If you're testing against a local server, test cases 014, 015, and 016 will always fail, since these actions are made available through HTTP (non-HTTPS). We recommend skipping these tests by adding the argument `--skip-http-check`.
-
-**Example with SINE's iLEAP demo API**
-```
-ARCH="arm64" curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | bash -s -- -e "https://api.ileap.sine.dev" -u "hello" -p "pathfinder" --skip-http-check
-```
 ## GitHub Workflow
 
 Adding ACT to your CI/CD pipeline with GitHub is as simple as including the following job in your GitHub workflow, replacing `<url>`, `<user>`, and `<password>` with the URL of your API and the Basic Auth credentials (user and password).
 
-```
+```TOML
   act_test:
     name: ACT Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run ACT (test)
-        env:
-          ARCH: "x86-64"
         run: |
           set -o pipefail
           curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | \
@@ -49,8 +55,27 @@ Adding ACT to your CI/CD pipeline with GitHub is as simple as including the foll
           -e `<url>` \
           -u `<user>` \
           -p `<password>` \
+          --skip-http-check
 ```
 
-The Basic Auth credentials can (and should) be passed in through repository secrets (e.g., `${{secrets.ACT_USER}}` and `${{secrets.ACT_PASSWORD}}`).
 
-In case you're testing against your development build, you need to have it run in parallel. In that case, include also the flag `--skip-http-check`.
+### Security Considerations
+
+If you intend to use this action to test live or otherwise production-like systems, you should 
+
+1. make sure that credentials are passed in as secrets 
+     (e.g., `${{secrets.ACT_USER}}` and `${{secrets.ACT_PASSWORD}}`)
+2. remove the `--skip-http-check` flag above
+   
+
+## Limitations
+
+> [!IMPORTANT]
+> 
+> There are builds ready for ARM64 and x86_64 architectures and the `ubuntu-latest` runner only. 
+> If you need support for a different architecture or runner, please let us know.
+
+
+# Contact
+
+For any questions, feedback, or issues, please contact us at [act-feedback@sine.dev](act-feedback@sine.dev).
