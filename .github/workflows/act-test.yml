@@ -1,18 +1,25 @@
 on: push
 
 jobs:
-  act_test:
-    name: ACT Test
+  linux_x64_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run ACT (test)
-        env:
-          ARCH: "x86-64"
         run: |
-          set -o pipefail --
-          curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh?token=${{secrets.ACT_TOKEN}} | \
-          bash -s -- \
-          -e "https://api.ileap.sine.dev" \
-          -u ${{secrets.ACT_USER}} \
-          -p ${{secrets.ACT_PASSWORD}} \
+          cat act.sh                          \
+          | bash -s --                        \
+          -e "https://api.ileap.sine.dev"     \
+          -u ${{secrets.ACT_USER}}            \
+          -p ${{secrets.ACT_PASSWORD}}
+  mac_amd64_test:
+    runs-on: max-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run ACT (test)
+        run: |
+          cat act.sh                          \
+          | bash -s --                        \
+          -e "https://api.ileap.sine.dev"     \
+          -u ${{secrets.ACT_USER}}            \
+          -p ${{secrets.ACT_PASSWORD}}
