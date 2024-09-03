@@ -74,6 +74,48 @@ If you intend to use this action to test live or otherwise production-like syste
 > There are builds ready for ARM64 and x86_64 architectures and the `ubuntu-latest` runner only.
 > If you need support for a different architecture or runner, please let us know.
 
+We are working to enlarge the coverage of ACT. Most test cases are already covered, but these do not yet include the tests concerning expired tokens, nor some of the asynchronous tests. Below is a detailed list of the test cases that are currently covered by ACT.
+
+### Coverage
+
+PACT Test Cases
+
+- [x] Test Case 001: Authentication against default endpoint
+- [x] Test Case 002: Authentication with invalid credentials against default endpoint
+- [x] Test Case 003: Get All Footprints
+- [x] Test case 004: Get Limited List of Footprints
+- [x] Test case 005: Pagination link implementation of Action ListFootprints
+- [ ] Test Case 006: Attempt ListFootprints with Expired Token
+- [x] Test Case 007: Attempt ListFootprints with Invalid Token
+- [x] Test Case 008: Get Footprint
+- [ ] Test Case 009: Attempt GetFootprint with Expired Token
+- [x] Test Case 010: Attempt GetFootprint with Invalid Token
+- [ ] Test Case 011: Attempt GetFootprint with Non-Existent PfId
+- [ ] Test Case 012: Asynchronous PCF Request
+- [ ] Test Case 013: Respond to Asynchronous PCF Request
+- [x] Test Case 014: Receive Notification of PCF Update
+- [ ] Test Case 015: Notify of PCF Update
+- [x] Test Case 016: OpenId Connect-based Authentication Flow
+- [x] Test Case 017: OpenId connect-based authentication flow with incorrect credentials
+- [x] Test Case 018: Attempt Authentication through HTTP (non-HTTPS)
+- [x] Test Case 019: Attempt ListFootprints through HTTP (non-HTTPS)
+- [x] Test Case 020: Get Filtered List of Footprints
+- [x] Test Case 021: Attempt GetFootprint through HTTP (non-HTTPS)
+- [ ] Test Case 022: Attempt Action Events with Expired Token
+- [x] Test Case 023: Attempt Action Events with Invalid Token
+- [x] Test Case 024: Attempt Action Events through HTTP (non-HTTPS)
+
+iLEAP Test Cases
+
+- [x] iLEAP Test Case 001: Get ProductFootprint with ShipmentFootprint
+- [x] iLEAP Test Case 002: Get ProductFootprint with TOC
+- [x] iLEAP Test Case 003: Get ProductFootprint with HOCs
+- [x] iLEAP Test Case 004: Get All TransportActivityData
+- [x] iLEAP Test Case 005: Get Filtered List of TransportActivityData
+- [x] iLEAP Test Case 006: Get Limited List of TransportActivityData
+- [x] iLEAP Test Case 007: Attempt TransportActivityData with Invalid Token
+- [ ] iLEAP Test Case 008: Attempt TransportActivityData with Expired Token
+
 
 # Contact
 
