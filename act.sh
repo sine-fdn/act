@@ -1,7 +1,7 @@
 #!/bin/bash
 
 case $ARCH in
-arm64 | x86-64)
+arm64 | x86_64)
     echo "Downloading $ARCH binary."
     ;;
 *)
