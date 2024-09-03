@@ -19,7 +19,7 @@ jobs:
       - name: Run ACT (test)
         run: |
           cat act.sh                          \
-          | bash -s --                        \
+          | bash -s -- test                   \
           -e "https://api.ileap.sine.dev"     \
           -u ${{secrets.ACT_USER}}            \
           -p ${{secrets.ACT_PASSWORD}}
