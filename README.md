@@ -15,7 +15,7 @@ By integrating ACT into your CI/CD pipeline and development processes, you can s
 > If you encounter any issues or difficulties, give us [feedback](#contact), open an issue on the [ACT GitHub repository](https://github.com/sine-fdn/act/issues).
 
 
-# Usage
+## Usage
 
 You can use ACT in the CLI or in a GitHub workflow.
 
@@ -23,18 +23,35 @@ All you need to do is to adapt below commands to your environment and run them i
 
 ```sh
 curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh |\
-  bash -s -- test -e "<url>" -u "<user>" -p "<password>"
+  bash -s -- test -b "<url>" -u "<user>" -p "<password>"
 ```
 
 (i.e. `<user>`, `<password>` etc. are placeholders for your actual client credentials)
 
-
 Example usage with SINE's iLEAP demo API
 ```sh
 curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh |\
-  bash -s -- test -e "https://api.ileap.sine.dev" -u "hello" -p "pathfinder" \
+  bash -s -- test -b "https://api.ileap.sine.dev" -u "hello" -p "pathfinder" \
 ```
 
+### Options
+
+```sh
+Options:
+  -b, --basepath <BASEPATH>            URL of the API
+      --auth-basepath <AUTH_BASEPATH>  Auth Base URL (if different from the API endpoint)
+  -u, --user <USER>                    Basic auth username
+  -p, --password <PASSWORD>            Basic auth password
+      --enable-http-check              Check if http (instead of https) requests are properly rejected
+      --check-filter                   Checks conformance of the optional $filter query parameter
+      --check-ileap-tad                Checks 2/ileap/tad endpoint
+      --val-ship-foot                  Validates ShipmentFootprint extension
+      --val-toc                        Validates TOC extension
+      --val-hoc                        Validates HOC extension
+  -h, --help                           Print help
+  -V, --version                        Print version
+
+```
 
 ## GitHub Workflow
 
@@ -51,10 +68,9 @@ Adding ACT to your CI/CD pipeline with GitHub is as simple as including the foll
           set -o pipefail
           curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh | \
           bash -s -- test \
-          -e `<url>` \
+          -b `<url>` \
           -u `<user>` \
           -p `<password>` \
-          --skip-http-check
 ```
 
 
