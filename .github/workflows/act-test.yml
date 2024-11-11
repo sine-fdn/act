@@ -9,7 +9,7 @@ jobs:
         run: |
           cat act.sh                          \
           | bash -s -- test                   \
-          -e "https://api.ileap.sine.dev"     \
+          -b "https://api.ileap.sine.dev"     \
           -u ${{secrets.ACT_USER}}            \
           -p ${{secrets.ACT_PASSWORD}}
   mac_amd64_test:
@@ -20,6 +20,6 @@ jobs:
         run: |
           cat act.sh                          \
           | bash -s -- test                   \
-          -e "https://api.ileap.sine.dev"     \
+          -b "https://api.ileap.sine.dev"     \
           -u ${{secrets.ACT_USER}}            \
           -p ${{secrets.ACT_PASSWORD}}
