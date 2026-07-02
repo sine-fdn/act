@@ -38,7 +38,7 @@ curl -sSf https://raw.githubusercontent.com/sine-fdn/act/main/act.sh |\
 ```
 
 > [!NOTE]
-> The PACT conformance tests are **opt-in**. Without `--pact-tests`, only the iLEAP test cases run.
+> The PACT conformance tests are **opt-out**: they run by default. Pass `--skip-pact-tests` to run only the iLEAP test cases.
 
 ### Options
 
@@ -50,7 +50,7 @@ Options:
   -p, --password <PASSWORD>            Basic auth password
       --expired-token <EXPIRED_TOKEN>  Expired token (some tests are skipped if not provided)
   -j, --json [<FILE>]                  Export results to JSON (optionally specify output file)
-      --pact-tests                     Run the PACT conformance tests (opt-in; not run unless set)
+      --skip-pact-tests                Skip the PACT conformance tests (they run by default)
       --pact-cli-version <VERSION>     pact_cli version to use [default: latest]
   -h, --help                           Print help
   -V, --version                        Print version
@@ -95,7 +95,7 @@ If you intend to use this action to test live or otherwise production-like syste
 
 PACT Test Cases
 
-ACT runs the PACT conformance test suite locally via a version of the [PACT Conformance Service](https://github.com/wbcsd/pact-conformance-service) CLI tool, downloaded on demand. PACT tests are opt-in (see above how to run them). iLEAP currently uses PACT version v2.2.
+ACT runs the PACT conformance test suite locally via a version of the [PACT Conformance Service](https://github.com/wbcsd/pact-conformance-service) CLI tool, downloaded on demand. PACT tests run by default (pass `--skip-pact-tests` to leave them out). iLEAP currently uses PACT version v2.2.
 
 PACT tests are written and maintained by the PACT community. For more information, see the [pact-conformance-service
 repo](https://github.com/wbcsd/pact-conformance-service).
